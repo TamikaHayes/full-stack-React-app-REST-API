@@ -3,7 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
-/** CourseDetail component - retrieves detail for course from REST API and renders course
+/** 
+ * CourseDetail component - retrieves detail for course from REST API and renders course
  * Specific course is identified by /api/courses/:id route
  * Also renders buttons for "Delete Course" and "Update Course", if user is authenticated
  */
@@ -32,6 +33,7 @@ export default class CourseDetail extends Component {
     render() {
         const {course, user} = this.state;
 
+        console.log(user);
         const context  = this.props.context;
         const authUser = context.authenticatedUser;
         return(

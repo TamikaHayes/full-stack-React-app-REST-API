@@ -6,24 +6,23 @@ import Form from './Form';
  * UserSignIn component - renders "Sign In" screen with form for existing users to provide their account information
  * Also renders buttons for "Sign In" and "Cancel"(returns user to default route)
  */
-export default class UserSignIn extends Component {
+ export default class UserSignIn extends Component {
   state = {
-    username: '',
+    emailAddress: '',
     password: '',
     errors: [],
   }
 
   render() {
     const {
-      username,
+      emailAddress,
       password,
       errors,
     } = this.state;
 
     return (
-      <div className="bounds">
-        <div className="grid-33 centered signin">
-          <h1>Sign In</h1>
+      <div className="form--centered">
+          <h2>Sign In</h2>
           <Form 
             cancel={this.cancel}
             errors={errors}
@@ -31,27 +30,30 @@ export default class UserSignIn extends Component {
             submitButtonText="Sign In"
             elements={() => (
               <React.Fragment>
+              <label> Email Address
                 <input 
-                  id="username" 
-                  name="username" 
+                  id="emailAddress" 
+                  name="emailAddress" 
                   type="text"
-                  value={username} 
+                  value={emailAddress} 
                   onChange={this.change} 
-                  placeholder="User Name" />
+                  placeholder="Email" />
+                  </label>
+                <label> Password 
                 <input 
                   id="password" 
                   name="password"
                   type="password"
                   value={password} 
                   onChange={this.change} 
-                  placeholder="Password" />                
+                  placeholder="Password" />    
+                  </label>            
               </React.Fragment>
             )} />
           <p>
-            Don't have a user account? <Link to="/signup">Click here</Link> to sign up!
+            Don't have a user account? Click here to <Link to="/signup">sign up!</Link>
           </p>
         </div>
-      </div>
     );
   }
 
@@ -66,19 +68,23 @@ export default class UserSignIn extends Component {
     });
   }
 
+
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/authenticated' } };
-    const { username, password } = this.state;
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const { emailAddress, password } = this.state;
 
-    context.actions.signIn(username, password)
-      .then((user) => {
+    context.actions.signIn(emailAddress, password)
+      .then(user => {
         if (user === null) {
           this.setState(() => {
-            return { errors: [ 'Sign-in was unsuccessful' ] };
+            return { errors: [ 'Sign-in was unsuccessful.' ] };
           });
+          
+          
         } else {
           this.props.history.push(from);
+          console.log(`Sign-in successful for ${emailAddress}!`)
         }
       })
       .catch((error) => {

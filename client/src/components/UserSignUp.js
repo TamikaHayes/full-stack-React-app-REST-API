@@ -2,31 +2,32 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
-
 /**
  * UserSignUp component - renders a form that enables a user to create a new account
  * Also renders a "Sign Up" button that signts in the user, and "Cancel" button to return user to default route
  */
-export default class UserSignUp extends Component {
+ export default class UserSignUp extends Component {
   state = {
-    name: '',
-    username: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
     password: '',
     errors: [],
   }
 
   render() {
     const {
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
       errors,
     } = this.state;
 
     return (
-      <div className="bounds">
+      <div className="form--centered">
         <div className="grid-33 centered signin">
-          <h1>Sign Up</h1>
+          <h2>Sign Up</h2>
           <Form 
             cancel={this.cancel}
             errors={errors}
@@ -35,19 +36,26 @@ export default class UserSignUp extends Component {
             elements={() => (
               <React.Fragment>
                 <input 
-                  id="name" 
-                  name="name" 
+                  id="firstName" 
+                  name="firstName" 
                   type="text"
-                  value={name} 
+                  value={firstName} 
                   onChange={this.change} 
-                  placeholder="Name" />
+                  placeholder="First Name" />
+                  <input 
+                  id="lastName" 
+                  name="lastName" 
+                  type="text"
+                  value={lastName} 
+                  onChange={this.change} 
+                  placeholder="Last Name" />
                 <input 
-                  id="username" 
-                  name="username" 
+                  id="emailAddress" 
+                  name="emailAddress" 
                   type="text"
-                  value={username} 
+                  value={emailAddress} 
                   onChange={this.change} 
-                  placeholder="User Name" />
+                  placeholder="Email Address" />
                 <input 
                   id="password" 
                   name="password"
@@ -55,6 +63,13 @@ export default class UserSignUp extends Component {
                   value={password} 
                   onChange={this.change} 
                   placeholder="Password" />
+                  <input 
+                  id="confirmPassword" 
+                  name="confirmPassword"
+                  type="password"
+                  value={password} 
+                  onChange={this.change} 
+                  placeholder="Confirm Password" />
               </React.Fragment>
             )} />
           <p>
@@ -79,27 +94,35 @@ export default class UserSignUp extends Component {
   submit = () => {
     const { context } = this.props;
     const {
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
     } = this.state;
 
-    // Create user
+ 
     const user = {
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
     };
 
     context.data.createUser(user)
-      .then( errors => {
+      .then(errors => {
         if (errors.length) {
           this.setState({ errors });
+          console.log(errors)
         } else {
-          context.actions.signIn(username, password)
+          context.actions.signIn(emailAddress, password)
             .then(() => {
-              this.props.history.push('/authenticated');    
-            });
+              console.log(`${emailAddress} created as a new user!`);
+              this.props.history.push('/');    
+            })
+          .catch(error => {
+            console.log(error);
+            this.props.history.push('/error');
+          })
         }
       })
       .catch((err) => {
@@ -107,9 +130,11 @@ export default class UserSignUp extends Component {
         this.props.history.push('/error');
       });
   
+      
   }
 
   cancel = () => {
    this.props.history.push('/');
   }
 }
+
