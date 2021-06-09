@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import Form from './Form';
 
+/** UpdateCourse component - renders "Update Course" screen with form that allows a user to update one of their existing courses
+ * Also renders an "Update Course" button and a "Cancel" button that returns user to the "Course Detail" screen.
+ */
 export default class UpdateCourse extends Component {
     state = {
         title: '',

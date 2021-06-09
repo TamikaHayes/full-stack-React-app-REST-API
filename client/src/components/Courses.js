@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
+/**
+ * Courses component - retrieves and renders list of courses from the REST API
+ * Also renders a link to the "Create Course" screen
+ */
 export default class Courses extends Component {
     state = {
         courses: [],

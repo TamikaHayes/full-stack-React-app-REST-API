@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+/**
+ * UserSignIn component - renders "Sign In" screen with form for existing users to provide their account information
+ * Also renders buttons for "Sign In" and "Cancel"(returns user to default route)
+ */
 export default class UserSignIn extends Component {
   state = {
     username: '',

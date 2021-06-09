@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+
+/**
+ * UserSignUp component - renders a form that enables a user to create a new account
+ * Also renders a "Sign Up" button that signts in the user, and "Cancel" button to return user to default route
+ */
 export default class UserSignUp extends Component {
   state = {
     name: '',

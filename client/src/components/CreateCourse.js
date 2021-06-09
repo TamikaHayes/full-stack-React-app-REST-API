@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import Form from './Form';
 
+/** 
+ * CreateCourse component - renders the "Create Course" screen with form that allows user to create a new course
+ * Also renders a "Create Course" button and a "Cancel" button that returns the user to the default route
+ */
 export default class CreateCourse extends Component {
     state = {  
         title: '',

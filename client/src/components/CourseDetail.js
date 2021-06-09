@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
+/** CourseDetail component - retrieves detail for course from REST API and renders course
+ * Specific course is identified by /api/courses/:id route
+ * Also renders buttons for "Delete Course" and "Update Course", if user is authenticated
+ */
 export default class CourseDetail extends Component {
     state = {
         course: {},
@@ -99,7 +103,7 @@ export default class CourseDetail extends Component {
             if(errors.length){
                 this.setState({errors})
             } else {
-                console.log('Hooray! Course deleted.');
+                //console.log('Course successfully deleted.');
                 this.props.history.push('/');
             }
         })

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/** Header component - displays top menu bar for the app, with buttons for signing in and signing up (if user is not authenticated) */
 export default class Header extends React.PureComponent {
   render() {
     const { context } = this.props;
