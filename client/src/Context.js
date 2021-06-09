@@ -4,6 +4,11 @@ import Data from './Data';
 
 const Context = React.createContext(); 
 
+/** Provider class 
+ *  - Higher-order component that provides data for consumption by multiple other components
+ *  - Returns a Provider component which provides application state, actions, event handlers to other components, via value prop
+ *  - value prop represents an object containing context to be shared throughout the component tree
+*/
 export class Provider extends Component {
 
   state = {
