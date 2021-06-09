@@ -1,64 +1,46 @@
 
-//import logo from './logo.svg';
-//import './App.css';
+import './App.css'
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
-import React, { Component } from 'react'
+import Header from './components/Header';
+import Public from './components/Public';
+import NotFound from './components/NotFound';
+import UserSignUp from './components/UserSignUp';
+import UserSignIn from './components/UserSignIn';
+import UserSignOut from './components/UserSignOut';
+import Authenticated from './components/Authenticated';
 
-class App extends Component {
-  
-  async componentDidMount() {
-    await fetch('http://localhost:5000/api/courses')
-    .then(response =>
-    (response.json(),
-     console.log(response)))
-    
-    // return (
-    //   <div>
-        
-    //   </div>
-    // )
-  }
-render() {
-  return(
-    <p>Hi</p>
-  )
-}
+import withContext from './Context';
+import PrivateRoute from './PrivateRoute';
+//import App from './App';
 
-}
+const HeaderWithContext = withContext(Header);
+const AuthWithContext = withContext(Authenticated);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 
-/*
-then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
-*/
+const App = () => (
+  <Router>
+    <div>
+      <HeaderWithContext />
 
-export default App
- // when path is root route, render Courses component 
- // next, route for Course Details
+      <Switch>
+        <Route exact path="/" component={Public} />
+        <PrivateRoute path="/authenticated" component={AuthWithContext} />
+        <Route path="/signin" component={UserSignInWithContext} />
+        <Route path="/signup" component={UserSignUpWithContext} />
+        <Route path="/signout" component={UserSignOutWithContext} />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
+  </Router>
+)
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-//export default App;
+export default App;
+;
