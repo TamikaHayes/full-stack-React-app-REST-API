@@ -29,9 +29,9 @@ export default class UpdateCourse extends Component {
             description: course.description,
             materialsNeeded: course.materialsNeeded,
             estimatedTime: course.estimatedTime,
-            user: course.User
+            user: course.user
           })
-          console.log(course.User);
+          console.log(course.user);
           if (authUser.userId !== this.state.user.id) {
             this.props.history.push('/forbidden');
           }

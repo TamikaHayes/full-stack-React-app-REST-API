@@ -121,12 +121,14 @@ import Form from './Form';
             })
           .catch(error => {
             console.log(error);
+            console.log('ALALALALLA')
             this.props.history.push('/error');
           })
         }
       })
       .catch((err) => {
         console.log(err);
+        console.log('HEYHEY');
         this.props.history.push('/error');
       });
   

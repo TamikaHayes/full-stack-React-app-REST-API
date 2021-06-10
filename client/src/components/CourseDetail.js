@@ -14,14 +14,15 @@ export default class CourseDetail extends Component {
         user: {}
     };
 
-    componentDidMount(){
-        axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`)
+    async componentDidMount(){
+        await axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`)
         .then(response => {
             this.setState({
                 course: response.data,
-                user: response.data.User
+                user: response.data.user
             })
-            
+        console.log(this.state.course)
+        console.log(this.state.user)
         })
         .catch(errors => {
             console.log('Course ID not found', errors);
