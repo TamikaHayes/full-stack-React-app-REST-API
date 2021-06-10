@@ -60,7 +60,7 @@ function asyncHandler(cb){
      res.json(course);
      res.status(200);
     } else {
-      res.status(404);
+      res.status(404).end();
     }
   }));
  
